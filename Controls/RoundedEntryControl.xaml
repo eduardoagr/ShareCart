@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    x:Class="ShareCart.Controls.RoundedEntryControl"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:ShareCart.Controls"
+    x:Name="Root">
+
+    <Border Padding="12" Style="{StaticResource RoundedBorder}">
+
+        <Grid ColumnDefinitions="*,Auto">
+
+            <controls:BorderlessEntry
+                BackgroundColor="Transparent"
+                IsPassword="{Binding ComputedIsPassword, Source={x:Reference Root}}"
+                Placeholder="{Binding Placeholder, Source={x:Reference Root}}"
+                Text="{Binding Text, Source={x:Reference Root}, Mode=TwoWay}" />
+
+            <Label
+                Grid.Column="1"
+                IsVisible="{Binding IsPassword, Source={x:Reference Root}}"
+                Style="{StaticResource IconLabel}"
+                Text="{Binding EyeGlyph, Source={x:Reference Root}}">
+
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer x:Name="VisibilityLabel" Tapped="VisibilityLabel_Tapped" />
+                </Label.GestureRecognizers>
+
+            </Label>
+        </Grid>
+    </Border>
+</ContentView>

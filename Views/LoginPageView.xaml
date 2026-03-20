@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="ShareCart.Views.LoginPageView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:ShareCart.Controls"
+    xmlns:loc="clr-namespace:LocalizationResourceManager.Maui;assembly=LocalizationResourceManager.Maui"
+    xmlns:sfPopup="clr-namespace:Syncfusion.Maui.Popup;assembly=Syncfusion.Maui.Popup"
+    xmlns:views="clr-namespace:ShareCart.Views"
+    xmlns:vm="clr-namespace:ShareCart.ViewModels"
+    x:DataType="vm:LoginPageViewModel"
+    BackgroundColor="{x:AppThemeBinding Light={x:DynamicResource LightBackground},
+                                        Dark={x:DynamicResource DarkBackground}}">
+
+    <!--  ✅ ROOT GRID  -->
+    <Grid>
+
+        <!--  ✅ CENTERED CONTENT  -->
+        <VerticalStackLayout
+            Padding="16"
+            Spacing="32"
+            VerticalOptions="Center">
+
+            <!--  Title  -->
+            <Label
+                HorizontalOptions="Center"
+                Style="{x:DynamicResource TitleLabel}"
+                Text="{loc:Translate UI_WelcomeBack}" />
+
+            <Label
+                HorizontalOptions="Center"
+                Style="{x:DynamicResource SubtitleLabel}"
+                Text="{loc:Translate UI_SignInToContinue}" />
+
+            <!--  Email  -->
+            <controls:RoundedEntryControl
+                IsPassword="False"
+                Placeholder="{loc:Translate UI_Email}"
+                Text="{x:Binding Credentials.Email}" />
+
+            <!--  Password  -->
+            <controls:RoundedEntryControl
+                IsPassword="True"
+                Placeholder="{loc:Translate UI_Password}"
+                Text="{x:Binding Credentials.Password}" />
+
+            <!--  Login  -->
+            <Button
+                Command="{Binding LoginCommand}"
+                Style="{x:DynamicResource PrimaryButton}"
+                Text="{loc:Translate UI_Login}" />
+
+            <!--  Divider  -->
+            <BoxView Margin="0,10" Style="{x:DynamicResource Divider}" />
+
+            <!--  Register  -->
+            <HorizontalStackLayout HorizontalOptions="Center" Spacing="4">
+                <Label Style="{x:DynamicResource BodyLabel}" Text="{loc:Translate UI_NoAccount}" />
+
+                <Button
+                    Command="{x:Binding OpenRegisterCommand}"
+                    Style="{x:DynamicResource TextButton}"
+                    Text="{loc:Translate UI_RegisterHere}" />
+            </HorizontalStackLayout>
+
+        </VerticalStackLayout>
+
+        <!--  ✅ BUSY POPUP (FULL OVERLAY)  -->
+        <sfPopup:SfPopup
+            AnimationMode="Zoom"
+            IsOpen="{Binding isBusy}"
+            ShowHeader="False">
+
+            <sfPopup:SfPopup.PopupStyle>
+                <sfPopup:PopupStyle HeaderTextColor="{x:AppThemeBinding Light={x:DynamicResource LightBackground}, Dark={x:DynamicResource DarkBackground}}" MessageBackground="{x:AppThemeBinding Light={x:DynamicResource LightBackground}, Dark={x:DynamicResource DarkBackground}}" />
+            </sfPopup:SfPopup.PopupStyle>
+
+            <sfPopup:SfPopup.ContentTemplate>
+                <DataTemplate>
+                    <ActivityIndicator IsRunning="True" Style="{x:DynamicResource DefaultActivityIndicator}" />
+                </DataTemplate>
+            </sfPopup:SfPopup.ContentTemplate>
+        </sfPopup:SfPopup>
+
+        <!--  ✅ ERROR POPUP (FULL OVERLAY)  -->
+        <sfPopup:SfPopup
+            AnimationMode="Zoom"
+            AutoCloseDuration="2000"
+            HeaderTitle="{loc:Translate UI_GenericAuthError}"
+            IsOpen="{Binding isFailed}">
+
+            <sfPopup:SfPopup.PopupStyle>
+                <sfPopup:PopupStyle
+                    HasShadow="True"
+                    HeaderBackground="{x:AppThemeBinding Light={x:DynamicResource LightBackground},
+                                                         Dark={x:DynamicResource DarkBackground}}"
+                    HeaderTextColor="{x:AppThemeBinding Light={x:StaticResource LightTextPrimary},
+                                                        Dark={x:StaticResource DarkTextPrimary}}"
+                    MessageBackground="{x:AppThemeBinding Light={x:DynamicResource LightBackground},
+                                                          Dark={x:DynamicResource DarkBackground}}"
+                    MessageTextAlignment="Center" />
+            </sfPopup:SfPopup.PopupStyle>
+
+            <sfPopup:SfPopup.ContentTemplate>
+                <DataTemplate>
+                    <Grid Margin="0,15,0,0" HorizontalOptions="Center">
+                        <Label Style="{x:DynamicResource BodyLabel}" Text="{Binding failedMessage}" />
+                    </Grid>
+                </DataTemplate>
+            </sfPopup:SfPopup.ContentTemplate>
+        </sfPopup:SfPopup>
+
+        <!--  ✅ REGISTER POPUP  -->
+        <views:RegistrationPageView IsOpen="{Binding isRegisterPopupOpen}" />
+
+    </Grid>
+
+</ContentPage>

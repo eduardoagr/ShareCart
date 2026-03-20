@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <!--  BRAND COLORS  -->
+    <Color x:Key="Primary">#3A7AFE</Color>
+    <Color x:Key="PrimaryDark">#1F2A44</Color>
+    <Color x:Key="Accent">#8BEA62</Color>
+
+    <!--  LIGHT THEME  -->
+    <Color x:Key="LightBackground">#F7F9FC</Color>
+    <Color x:Key="LightSurface">#FFFFFF</Color>
+    <Color x:Key="LightTextPrimary">#1A1A1A</Color>
+    <Color x:Key="LightTextSecondary">#5A5A5A</Color>
+    <Color x:Key="LightInputBackground">#EFEFF5</Color>
+    <Color x:Key="LightDivider">#D8DCE3</Color>
+
+    <!--  DARK THEME  -->
+    <Color x:Key="DarkBackground">#0F1115</Color>
+    <Color x:Key="DarkSurface">#1A1D23</Color>
+    <Color x:Key="DarkTextPrimary">#FFFFFF</Color>
+    <Color x:Key="DarkTextSecondary">#A8A8A8</Color>
+    <Color x:Key="DarkInputBackground">#2A2E36</Color>
+    <Color x:Key="DarkDivider">#3A3F47</Color>
+
+</ResourceDictionary>

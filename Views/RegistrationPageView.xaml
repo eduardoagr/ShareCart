@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sfPopup:SfPopup
+    x:Class="ShareCart.Views.RegistrationPageView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:ShareCart.Controls"
+    xmlns:loc="clr-namespace:LocalizationResourceManager.Maui;assembly=LocalizationResourceManager.Maui"
+    xmlns:sfPopup="clr-namespace:Syncfusion.Maui.Popup;assembly=Syncfusion.Maui.Popup"
+    xmlns:vm="clr-namespace:ShareCart.ViewModels"
+    x:DataType="vm:LoginPageViewModel"
+    AnimationMode="Zoom"
+    HeaderTitle="{loc:Translate UI_Registration}"
+    HeightRequest="400"
+    WidthRequest="300">
+
+    <sfPopup:SfPopup.ContentTemplate>
+        <DataTemplate>
+            <VerticalStackLayout Padding="20" Spacing="20">
+
+                <controls:RoundedEntryControl Placeholder="{loc:Translate UI_Email}" Text="{x:Binding Credentials.Email}" />
+
+                <controls:RoundedEntryControl
+                    IsPassword="True"
+                    Placeholder="{loc:Translate UI_Password}"
+                    Text="{x:Binding Credentials.Password}" />
+
+                <Button
+                    Command="{x:Binding CloseRegisterCommand}"
+                    Style="{StaticResource PrimaryButton}"
+                    Text="{loc:Translate UI_Registration}"
+                    VerticalOptions="End" />
+
+            </VerticalStackLayout>
+        </DataTemplate>
+    </sfPopup:SfPopup.ContentTemplate>
+    <sfPopup:SfPopup.PopupStyle>
+        <sfPopup:PopupStyle
+            HasShadow="True"
+            HeaderBackground="{x:AppThemeBinding Light={x:DynamicResource LightBackground},
+                                                 Dark={x:DynamicResource DarkBackground}}"
+            HeaderTextColor="{x:AppThemeBinding Light={x:StaticResource LightTextPrimary},
+                                                Dark={x:StaticResource DarkTextPrimary}}"
+            MessageBackground="{x:AppThemeBinding Light={x:DynamicResource LightBackground},
+                                                  Dark={x:DynamicResource DarkBackground}}"
+            MessageTextAlignment="Center" />
+    </sfPopup:SfPopup.PopupStyle>
+
+</sfPopup:SfPopup>

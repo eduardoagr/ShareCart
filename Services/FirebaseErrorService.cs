@@ -1,6 +1,6 @@
 ﻿using LocalizationResourceManager.Maui;
 
-using ShareCart.Interfaea;
+using ShareCart.Interfaces;
 
 namespace ShareCart.Services;
 

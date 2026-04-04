@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sfPopup:SfPopup
+    x:Class="ShareCart.Views.UserDetailPopUp"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:ShareCart.Controls"
+    xmlns:loc="clr-namespace:LocalizationResourceManager.Maui;assembly=LocalizationResourceManager.Maui"
+    xmlns:model="clr-namespace:ShareCart.Models"
+    xmlns:sfPopup="clr-namespace:Syncfusion.Maui.Popup;assembly=Syncfusion.Maui.Popup"
+    xmlns:vm="clr-namespace:ShareCart.ViewModels"
+    x:DataType="vm:AddItemToCartPageViewModel"
+    AutoSizeMode="Both"
+    ShowCloseButton="True"
+    StaysOpen="True"
+    Style="{x:DynamicResource DefaultPopupStyle}">
+
+    <sfPopup:SfPopup.ContentTemplate>
+        <DataTemplate x:DataType="vm:AddItemToCartPageViewModel">
+            <VerticalStackLayout Padding="20" Spacing="20">
+
+                <controls:RoundedEntryControl
+                    IsPassword="False"
+                    Placeholder="{loc:Translate UI_Name}"
+                    Text="{x:Binding CurrentUser.Name}" />
+
+                <CollectionView
+                    Margin="10"
+                    ItemsLayout="HorizontalList"
+                    ItemsSource="{x:Binding ColorOptions}">
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="model:ColorOption">
+                            <Border
+                                Padding="5"
+                                BackgroundColor="{Binding Color}"
+                                HeightRequest="40"
+                                Style="{x:DynamicResource RoundedBorder}"
+                                WidthRequest="40">
+
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{x:Binding SelectedColorCommand, Source={x:RelativeSource AncestorType={x:Type vm:AddItemToCartPageViewModel}}}" CommandParameter="{x:Binding .}" />
+                                </Border.GestureRecognizers>
+
+                                <Border.Triggers>
+                                    <DataTrigger
+                                        Binding="{x:Binding IsSelected}"
+                                        TargetType="Border"
+                                        Value="True">
+                                        <Setter Property="Stroke" Value="ForestGreen" />
+                                    </DataTrigger>
+                                </Border.Triggers>
+
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+                <Button
+                    Command="{x:Binding DetailPopUpClosedCommand}"
+                    Style="{StaticResource PrimaryButton}"
+                    Text="{loc:Translate UI_Ok}"
+                    VerticalOptions="End" />
+            </VerticalStackLayout>
+
+        </DataTemplate>
+    </sfPopup:SfPopup.ContentTemplate>
+</sfPopup:SfPopup>

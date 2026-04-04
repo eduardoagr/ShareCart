@@ -2,7 +2,7 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <!--  BRAND COLORS  -->
-    <Color x:Key="Primary">#3A7AFE</Color>
+    <Color x:Key="Primary">#0078d7</Color>
     <Color x:Key="PrimaryDark">#1F2A44</Color>
     <Color x:Key="Accent">#8BEA62</Color>
 
@@ -21,5 +21,6 @@
     <Color x:Key="DarkTextSecondary">#A8A8A8</Color>
     <Color x:Key="DarkInputBackground">#2A2E36</Color>
     <Color x:Key="DarkDivider">#3A3F47</Color>
+
 
 </ResourceDictionary>

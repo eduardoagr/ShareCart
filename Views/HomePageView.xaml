@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="ShareCart.Views.HomePageView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:ShareCart.Controls"
+    xmlns:loc="clr-namespace:LocalizationResourceManager.Maui;assembly=LocalizationResourceManager.Maui"
+    xmlns:model="clr-namespace:ShareCart.Models"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:views="clr-namespace:ShareCart.Views"
+    xmlns:vm="clr-namespace:ShareCart.ViewModels"
+    x:Name="Home"
+    Title="{loc:Translate Ui_ShoppingList}"
+    x:DataType="vm:HomePageViewModel">
+
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior
+            BindingContext="{Binding Path=BindingContext, Source={x:Reference Home}, x:DataType=ContentPage}"
+            Command="{Binding PageAppearingCommand}"
+            EventName="NavigatedTo" />
+    </ContentPage.Behaviors>
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{x:Binding EditProfileCommand}">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource Glyph="&#xE7FD;" />
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+    <Grid>
+        <CollectionView ItemsSource="{x:Binding ShoppingLists}">
+            <CollectionView.EmptyView>
+                <Grid
+                    Padding="16"
+                    RowDefinitions="Auto,Auto"
+                    VerticalOptions="Center">
+                    <Label
+                        HorizontalTextAlignment="Center"
+                        Style="{x:DynamicResource TitleLabel}"
+                        Text="{loc:Translate UI_NoItems}" />
+                    <Label
+                        Grid.Row="1"
+                        HorizontalTextAlignment="Center"
+                        Style="{x:DynamicResource SubtitleLabel}"
+                        Text="{loc:Translate UI_AddItems}" />
+                </Grid>
+            </CollectionView.EmptyView>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:ShoppingList">
+                    <Border
+                        x:Name="ItemBorder"
+                        Margin="10"
+                        StrokeThickness="4"
+                        Style="{x:DynamicResource RoundedBorder}">
+
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="20" />
+                        </Border.StrokeShape>
+
+                        <Border.Triggers>
+                            <DataTrigger
+                                Binding="{x:Binding IsMine}"
+                                TargetType="Border"
+                                Value="True">
+                                <Setter Property="Stroke" Value="{x:DynamicResource Primary}" />
+                            </DataTrigger>
+
+                            <DataTrigger
+                                Binding="{x:Binding IsMine}"
+                                TargetType="Border"
+                                Value="False">
+                                <Setter Property="Stroke" Value="{x:DynamicResource Accent}" />
+                            </DataTrigger>
+                        </Border.Triggers>
+
+
+                        <Border.Behaviors>
+                            <toolkit:TouchBehavior
+                                Command="{Binding BindingContext.OpenListCommand, Source={x:Reference Home}}"
+                                CommandParameter="{Binding Source={x:Reference ItemBorder}, Path=BindingContext}"
+                                LongPressCommand="{Binding BindingContext.LongPressCommand, Source={x:Reference Home}}"
+                                LongPressCommandParameter="{Binding Source={x:Reference ItemBorder}, Path=BindingContext}" />
+                        </Border.Behaviors>
+
+
+                        <!--  Content  -->
+                        <Grid RowDefinitions="Auto,Auto,Auto" RowSpacing="10">
+
+
+                            <Label
+                                FontSize="60"
+                                HorizontalTextAlignment="Center"
+                                Style="{x:DynamicResource TitleLabel}"
+                                Text="🧾" />
+
+                            <Label
+                                Grid.Row="1"
+                                HorizontalTextAlignment="Center"
+                                Style="{x:DynamicResource SubtitleLabel}"
+                                Text="{Binding CreatedDate, StringFormat='{0:dd/MM/yyyy HH:mm}'}" />
+
+
+                            <Label
+                                Grid.Row="2"
+                                HorizontalTextAlignment="Center"
+                                Style="{x:DynamicResource SubtitleLabel}">
+
+                                <Label.Triggers>
+                                    <DataTrigger
+                                        Binding="{x:Binding IsMine}"
+                                        TargetType="Label"
+                                        Value="True">
+                                        <Setter Property="Text" Value="{loc:Translate UI_ListCreatedByYou}" />
+                                        <Setter Property="TextColor" Value="{x:AppThemeBinding Dark={x:DynamicResource LightSurface}, Light={x:DynamicResource DarkSurface}}" />
+                                    </DataTrigger>
+
+                                    <DataTrigger
+                                        Binding="{x:Binding IsMine}"
+                                        TargetType="Label"
+                                        Value="False">
+                                        <Setter Property="Text" Value="{loc:Translate UI_ListShared}" />
+                                        <Setter Property="TextColor" Value="{x:AppThemeBinding Dark={x:DynamicResource LightSurface}, Light={x:DynamicResource DarkSurface}}" />
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical" Span="2" />
+            </CollectionView.ItemsLayout>
+        </CollectionView>
+        <Button Command="{x:Binding CreateNewListCommand}" Style="{x:DynamicResource FloatingActionButton}" />
+    </Grid>
+</ContentPage>

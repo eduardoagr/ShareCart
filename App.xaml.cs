@@ -1,16 +1,30 @@
-﻿using Syncfusion.Licensing;
+﻿using ShareCart.Interfaces;
+using ShareCart.Views;
 
 namespace ShareCart;
 
+
 public partial class App : Application {
-    public App() {
 
-        SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjGyl/VkV+XU9AclRDX3xKf0x/TGpQb19xflBPallYVBYiSV9jS3hTdURqWH5fd3ddRGNbU091XA==");
+    private readonly IAuthService auth;
+    private readonly IUserRepoService userRepoService;
 
+    public App(IAuthService authService, IUserRepoService userRepo) {
         InitializeComponent();
+
+        auth = authService;
+        userRepoService = userRepo;
     }
 
     protected override Window CreateWindow(IActivationState? activationState) {
         return new Window(new AppShell());
+    }
+
+    protected override async void OnStart() {
+        base.OnStart();
+
+        if(auth.IsAuthenticated()) {
+            await Shell.Current.GoToAsync($"//{nameof(HomePageView)}", true);
+        }
     }
 }

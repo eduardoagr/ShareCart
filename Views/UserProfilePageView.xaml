@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="ShareCart.Views.UserProfilePageView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:ShareCart.Controls"
+    xmlns:loc="clr-namespace:LocalizationResourceManager.Maui;assembly=LocalizationResourceManager.Maui"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:vm="clr-namespace:ShareCart.ViewModels"
+    x:Name="UserProfile"
+    Title="User profile"
+    x:DataType="vm:UserProfilePageViewModel">
+
+    <ContentPage.Behaviors>
+        <toolkit:EventToCommandBehavior
+            BindingContext="{Binding Path=BindingContext, Source={x:Reference UserProfile}, x:DataType=ContentPage}"
+            Command="{Binding LoadUserDataCommand}"
+            EventName="NavigatedTo" />
+    </ContentPage.Behaviors>
+
+    <ContentPage.ToolbarItems>
+
+        <ToolbarItem Command="{x:Binding SaveUserDataCommand}">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource Glyph="&#xE161;" />
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+
+
+    </ContentPage.ToolbarItems>
+
+    <VerticalStackLayout Padding="20" Spacing="25">
+
+        <!--  MEMBER SINCE (read-only, top)  -->
+        <controls:RoundedEntryControl
+            IsEnabled="False"
+            Placeholder="{loc:Translate UI_MemberSince}"
+            Text="{x:Binding FirebaseUser.CreatedAt}" />
+
+        <!--  EMAIL (read-only)  -->
+        <controls:RoundedEntryControl
+            IsEnabled="False"
+            Placeholder="{loc:Translate UI_Email}"
+            Text="{x:Binding FirebaseUser.Email}" />
+
+        <!--  NAME  -->
+        <controls:RoundedEntryControl Placeholder="{loc:Translate UI_Name}" Text="{x:Binding FirebaseUser.Name}" />
+        
+    </VerticalStackLayout>
+</ContentPage>

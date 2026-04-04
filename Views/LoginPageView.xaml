@@ -8,13 +8,10 @@
     xmlns:sfPopup="clr-namespace:Syncfusion.Maui.Popup;assembly=Syncfusion.Maui.Popup"
     xmlns:views="clr-namespace:ShareCart.Views"
     xmlns:vm="clr-namespace:ShareCart.ViewModels"
-    x:DataType="vm:LoginPageViewModel"
-    BackgroundColor="{x:AppThemeBinding Light={x:DynamicResource LightBackground},
-                                        Dark={x:DynamicResource DarkBackground}}">
+    x:DataType="vm:LoginPageViewModel">
 
     <!--  ✅ ROOT GRID  -->
     <Grid>
-
         <!--  ✅ CENTERED CONTENT  -->
         <VerticalStackLayout
             Padding="16"
@@ -69,14 +66,11 @@
         <sfPopup:SfPopup
             AnimationMode="Zoom"
             IsOpen="{Binding isBusy}"
-            ShowHeader="False">
-
-            <sfPopup:SfPopup.PopupStyle>
-                <sfPopup:PopupStyle HeaderTextColor="{x:AppThemeBinding Light={x:DynamicResource LightBackground}, Dark={x:DynamicResource DarkBackground}}" MessageBackground="{x:AppThemeBinding Light={x:DynamicResource LightBackground}, Dark={x:DynamicResource DarkBackground}}" />
-            </sfPopup:SfPopup.PopupStyle>
+            ShowHeader="False"
+            Style="{x:DynamicResource DefaultPopupStyle}">
 
             <sfPopup:SfPopup.ContentTemplate>
-                <DataTemplate>
+                <DataTemplate x:DataType="vm:LoginPageViewModel">
                     <ActivityIndicator IsRunning="True" Style="{x:DynamicResource DefaultActivityIndicator}" />
                 </DataTemplate>
             </sfPopup:SfPopup.ContentTemplate>
@@ -87,24 +81,14 @@
             AnimationMode="Zoom"
             AutoCloseDuration="2000"
             HeaderTitle="{loc:Translate UI_GenericAuthError}"
-            IsOpen="{Binding isFailed}">
-
-            <sfPopup:SfPopup.PopupStyle>
-                <sfPopup:PopupStyle
-                    HasShadow="True"
-                    HeaderBackground="{x:AppThemeBinding Light={x:DynamicResource LightBackground},
-                                                         Dark={x:DynamicResource DarkBackground}}"
-                    HeaderTextColor="{x:AppThemeBinding Light={x:StaticResource LightTextPrimary},
-                                                        Dark={x:StaticResource DarkTextPrimary}}"
-                    MessageBackground="{x:AppThemeBinding Light={x:DynamicResource LightBackground},
-                                                          Dark={x:DynamicResource DarkBackground}}"
-                    MessageTextAlignment="Center" />
-            </sfPopup:SfPopup.PopupStyle>
+            IsOpen="{Binding isFailed}"
+            Style="{x:DynamicResource DefaultPopupStyle}"
+            WidthRequest="400">
 
             <sfPopup:SfPopup.ContentTemplate>
-                <DataTemplate>
+                <DataTemplate x:DataType="vm:LoginPageViewModel">
                     <Grid Margin="0,15,0,0" HorizontalOptions="Center">
-                        <Label Style="{x:DynamicResource BodyLabel}" Text="{Binding failedMessage}" />
+                        <Label Style="{x:DynamicResource SubtitleLabel}" Text="{Binding Message}" />
                     </Grid>
                 </DataTemplate>
             </sfPopup:SfPopup.ContentTemplate>
@@ -112,7 +96,6 @@
 
         <!--  ✅ REGISTER POPUP  -->
         <views:RegistrationPageView IsOpen="{Binding isRegisterPopupOpen}" />
-
     </Grid>
 
 </ContentPage>

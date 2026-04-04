@@ -144,9 +144,6 @@
   <data name="UI_LoginSuccess" xml:space="preserve">
     <value>¡Bienvenido de nuevo!</value>
   </data>
-  <data name="UI_LoginFailed" xml:space="preserve">
-    <value>Inicio de sesión fallido. Inténtalo de nuevo.</value>
-  </data>
   <data name="UI_Ok" xml:space="preserve">
     <value>Aceptar</value>
   </data>
@@ -175,7 +172,7 @@
     <value>Tu clave API de Firebase es inválida.</value>
   </data>
   <data name="UI_GenericAuthError" xml:space="preserve">
-    <value>Error de autenticación. Inténtalo de nuevo.</value>
+    <value>Error del servidor.</value>
   </data>
   <data name="UI_NetworkError" xml:space="preserve">
     <value>Comprueba tu conexión a Internet.</value>
@@ -191,5 +188,62 @@
   </data>
   <data name="UI_RegistrationSuccess" xml:space="preserve">
     <value>¡Bienvenido! Tu cuenta está lista.</value>
+  </data>
+  <data name="UI_NoItems" xml:space="preserve">
+    <value>No se encontraron elementos</value>
+  </data>
+  <data name="Ui_ShoppingList" xml:space="preserve">
+    <value>Lista de compra</value>
+  </data>
+  <data name="UI_NewList" xml:space="preserve">
+    <value>Nueva lista de compras</value>
+  </data>
+  <data name="Ui_ProductName" xml:space="preserve">
+    <value>Nombre del producto</value>
+  </data>
+  <data name="UI_Name" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="UI_MemberSince" xml:space="preserve">
+    <value>Miembro desde </value>
+  </data>
+  <data name="UI_Update" xml:space="preserve">
+    <value>Actualizar</value>
+  </data>
+  <data name="UI_AddItems" xml:space="preserve">
+    <value>¡Intenta agregar algunos artículos a tu carrito!</value>
+  </data>
+  <data name="UI_WhatYourName" xml:space="preserve">
+    <value>Cuales su nombre</value>
+  </data>
+  <data name="UI_Question" xml:space="preserve">
+    <value>Pregunta</value>
+  </data>
+  <data name="UI_ListCreatedByYou" xml:space="preserve">
+    <value>Creada por ti</value>
+  </data>
+  <data name="UI_ListShared" xml:space="preserve">
+    <value>Compartida</value>
+  </data>
+  <data name="UI_DeleteOwnListsError" xml:space="preserve">
+    <value>Solo puedes eliminar tus propias listas</value>
+  </data>
+  <data name="UI_DeleteConfirmTitle" xml:space="preserve">
+    <value>Confirmar</value>
+  </data>
+  <data name="UI_DeleteConfirmMessage" xml:space="preserve">
+    <value>¿Estás seguro de que deseas eliminar esta lista?</value>
+  </data>
+  <data name="UI_Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="UI_Yes" xml:space="preserve">
+    <value>Sí</value>
+  </data>
+  <data name="UI_No" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="UIShareCart" xml:space="preserve">
+    <value>Comparte tu carrito</value>
   </data>
 </root>

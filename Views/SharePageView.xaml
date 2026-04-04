@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<sfPopup:SfPopup
+    x:Class="ShareCart.Views.SharePageView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:ShareCart.Controls"
+    xmlns:editors="clr-namespace:Syncfusion.Maui.Inputs;assembly=Syncfusion.Maui.Inputs"
+    xmlns:inputLayout="clr-namespace:Syncfusion.Maui.Core;assembly=Syncfusion.Maui.Core"
+    xmlns:loc="clr-namespace:LocalizationResourceManager.Maui;assembly=LocalizationResourceManager.Maui"
+    xmlns:sfPopup="clr-namespace:Syncfusion.Maui.Popup;assembly=Syncfusion.Maui.Popup"
+    xmlns:vm="clr-namespace:ShareCart.ViewModels"
+    x:DataType="vm:AddItemToCartPageViewModel"
+    AnimationMode="Zoom"
+    AutoSizeMode="Both"
+    HeaderTitle="{loc:Translate UIShareCart}"
+    ShowCloseButton="True"
+    StaysOpen="True"
+    Style="{x:DynamicResource DefaultPopupStyle}">
+
+
+    <sfPopup:SfPopup.ContentTemplate>
+        <DataTemplate x:DataType="vm:AddItemToCartPageViewModel">
+            <VerticalStackLayout Padding="20" Spacing="20">
+
+                <inputLayout:SfTextInputLayout
+                    Padding="0"
+                    ContainerType="Outlined"
+                    OutlineCornerRadius="12">
+
+                    <editors:SfComboBox
+                        DisplayMemberPath="DisplayName"
+                        HeightRequest="200"
+                        ItemsSource="{Binding FirebaseUsers}"
+                        SelectedDropDownItemBackground="#F5B0363E"
+                        SelectionMode="Multiple"
+                        TextColor="{x:AppThemeBinding Light={x:DynamicResource LightTextSecondary},
+                                                      Dark={x:DynamicResource DarkTextSecondary}}"
+                        TextMemberPath="DisplayName"
+                        SelectedItems="{x:Binding Ids}"
+                        TokensWrapMode="Wrap"
+                        VerticalOptions="Center"
+                        VerticalTextAlignment="Start" />
+
+                </inputLayout:SfTextInputLayout>
+
+                <Button
+                    Command="{x:Binding SharePopUpClosedCommand}"
+                    CommandParameter="close"
+                    Style="{StaticResource PrimaryButton}"
+                    Text="{loc:Translate UI_Ok}"
+                    VerticalOptions="End" />
+
+            </VerticalStackLayout>
+        </DataTemplate>
+    </sfPopup:SfPopup.ContentTemplate>
+</sfPopup:SfPopup>

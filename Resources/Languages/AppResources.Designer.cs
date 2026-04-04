@@ -61,6 +61,42 @@ namespace ShareCart.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Try adding some items to your cart!.
+        /// </summary>
+        internal static string UI_AddItems {
+            get {
+                return ResourceManager.GetString("UI_AddItems", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete this list?.
+        /// </summary>
+        internal static string UI_DeleteConfirmMessage {
+            get {
+                return ResourceManager.GetString("UI_DeleteConfirmMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm.
+        /// </summary>
+        internal static string UI_DeleteConfirmTitle {
+            get {
+                return ResourceManager.GetString("UI_DeleteConfirmTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You can only delete your own lists.
+        /// </summary>
+        internal static string UI_DeleteOwnListsError {
+            get {
+                return ResourceManager.GetString("UI_DeleteOwnListsError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email.
         /// </summary>
         internal static string UI_Email {
@@ -88,7 +124,16 @@ namespace ShareCart.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Authentication failed. Try again..
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string UI_Error {
+            get {
+                return ResourceManager.GetString("UI_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Server Error..
         /// </summary>
         internal static string UI_GenericAuthError {
             get {
@@ -115,20 +160,29 @@ namespace ShareCart.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Created by you.
+        /// </summary>
+        internal static string UI_ListCreatedByYou {
+            get {
+                return ResourceManager.GetString("UI_ListCreatedByYou", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shared.
+        /// </summary>
+        internal static string UI_ListShared {
+            get {
+                return ResourceManager.GetString("UI_ListShared", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Login.
         /// </summary>
         internal static string UI_Login {
             get {
                 return ResourceManager.GetString("UI_Login", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Authentication failed. Try again.
-        /// </summary>
-        internal static string UI_LoginFailed {
-            get {
-                return ResourceManager.GetString("UI_LoginFailed", resourceCulture);
             }
         }
         
@@ -142,6 +196,24 @@ namespace ShareCart.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Member Since.
+        /// </summary>
+        internal static string UI_MemberSince {
+            get {
+                return ResourceManager.GetString("UI_MemberSince", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name.
+        /// </summary>
+        internal static string UI_Name {
+            get {
+                return ResourceManager.GetString("UI_Name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Check your internet connection..
         /// </summary>
         internal static string UI_NetworkError {
@@ -151,11 +223,38 @@ namespace ShareCart.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New Shopping list.
+        /// </summary>
+        internal static string UI_NewList {
+            get {
+                return ResourceManager.GetString("UI_NewList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        internal static string UI_No {
+            get {
+                return ResourceManager.GetString("UI_No", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Don&apos;t have an account?.
         /// </summary>
         internal static string UI_NoAccount {
             get {
                 return ResourceManager.GetString("UI_NoAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No items found.
+        /// </summary>
+        internal static string UI_NoItems {
+            get {
+                return ResourceManager.GetString("UI_NoItems", resourceCulture);
             }
         }
         
@@ -174,6 +273,24 @@ namespace ShareCart.Resources.Languages {
         internal static string UI_Password {
             get {
                 return ResourceManager.GetString("UI_Password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Product name.
+        /// </summary>
+        internal static string Ui_ProductName {
+            get {
+                return ResourceManager.GetString("Ui_ProductName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Question.
+        /// </summary>
+        internal static string UI_Question {
+            get {
+                return ResourceManager.GetString("UI_Question", resourceCulture);
             }
         }
         
@@ -201,6 +318,15 @@ namespace ShareCart.Resources.Languages {
         internal static string UI_RegistrationSuccess {
             get {
                 return ResourceManager.GetString("UI_RegistrationSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shopping List.
+        /// </summary>
+        internal static string Ui_ShoppingList {
+            get {
+                return ResourceManager.GetString("Ui_ShoppingList", resourceCulture);
             }
         }
         
@@ -250,6 +376,15 @@ namespace ShareCart.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Update.
+        /// </summary>
+        internal static string UI_Update {
+            get {
+                return ResourceManager.GetString("UI_Update", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This account has been disabled..
         /// </summary>
         internal static string UI_UserDisabled {
@@ -277,11 +412,38 @@ namespace ShareCart.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to What&apos;s your name.
+        /// </summary>
+        internal static string UI_WhatYourName {
+            get {
+                return ResourceManager.GetString("UI_WhatYourName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Incorrect password..
         /// </summary>
         internal static string UI_WrongPassword {
             get {
                 return ResourceManager.GetString("UI_WrongPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        internal static string UI_Yes {
+            get {
+                return ResourceManager.GetString("UI_Yes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Share your cart.
+        /// </summary>
+        internal static string UIShareCart {
+            get {
+                return ResourceManager.GetString("UIShareCart", resourceCulture);
             }
         }
     }

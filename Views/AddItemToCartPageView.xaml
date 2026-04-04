@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="ShareCart.Views.AddItemToCartPageView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:behaviors="clr-namespace:ShareCart.Behaviors"
+    xmlns:controls="clr-namespace:ShareCart.Controls"
+    xmlns:loc="clr-namespace:LocalizationResourceManager.Maui;assembly=LocalizationResourceManager.Maui"
+    xmlns:model="clr-namespace:ShareCart.Models"
+    xmlns:views="clr-namespace:ShareCart.Views"
+    xmlns:vm="clr-namespace:ShareCart.ViewModels"
+    x:Name="Share"
+    Title="{loc:Translate UI_NewList}"
+    x:DataType="vm:AddItemToCartPageViewModel">
+
+    <Grid Padding="0" RowDefinitions="*, Auto">
+
+        <CollectionView x:Name="ItemsList" ItemsSource="{x:Binding Products}">
+
+            <CollectionView.Header>
+                <StackLayout Orientation="Horizontal" Spacing="8">
+                    <Ellipse
+                        Margin="30,20,0,0"
+                        Fill="#3B6D11"
+                        HeightRequest="8"
+                        VerticalOptions="Center"
+                        WidthRequest="8" />
+
+                    <Label
+                        Margin="2,20,0,0"
+                        Style="{x:DynamicResource SubtitleLabel}"
+                        Text="{x:Binding Products.Count,
+                                         StringFormat='{0} items'}"
+                        TextTransform="Uppercase" />
+                </StackLayout>
+            </CollectionView.Header>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="model:Product">
+                    <Grid
+                        Margin="10,2,0,0"
+                        Padding="5"
+                        ColumnDefinitions="*,40,40"
+                        ColumnSpacing="6">
+
+                        <Border BackgroundColor="{x:AppThemeBinding Light={x:DynamicResource LightSurface}, Dark={x:DynamicResource DarkSurface}}" StrokeThickness="2">
+
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="12" />
+                            </Border.StrokeShape>
+
+                            <Grid Padding="8,0,12,0" ColumnDefinitions="34,*">
+
+                                <CheckBox
+                                    x:Name="ItemCheckBox"
+                                    CheckedChanged="ItemCheckBox_CheckedChanged"
+                                    Color="Green" />
+
+                                <controls:BorderlessEntry
+                                    x:Name="NewProductEnttry"
+                                    Grid.Column="1"
+                                    Margin="5"
+                                    Keyboard="Text"
+                                    Loaded="NewProductEntry_Loaded"
+                                    Placeholder="{loc:Translate Ui_ProductName}"
+                                    ReturnCommand="{x:Binding AddOrDeleteNewRowsCommand,
+                                                              Source={RelativeSource AncestorType={x:Type vm:AddItemToCartPageViewModel}}}"
+                                    ReturnCommandParameter="1"
+                                    Text="{x:Binding Name}" />
+                            </Grid>
+                        </Border>
+
+
+                        <Border
+                            Grid.Column="1"
+                            BackgroundColor="#501313"
+                            HeightRequest="48"
+                            StrokeThickness="0"
+                            WidthRequest="40">
+
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="12" />
+                            </Border.StrokeShape>
+
+                            <Button
+                                BackgroundColor="Transparent"
+                                Command="{x:Binding AddOrDeleteNewRowsCommand,
+                                                    Source={RelativeSource AncestorType={x:Type vm:AddItemToCartPageViewModel}}}"
+                                CommandParameter="0"
+                                Style="{x:DynamicResource IconButton}"
+                                Text="&#xE15B;" />
+                        </Border>
+
+                        <Border
+                            Grid.Column="2"
+                            BackgroundColor="#173404"
+                            HeightRequest="48"
+                            StrokeThickness="0"
+                            WidthRequest="40">
+
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="12" />
+                            </Border.StrokeShape>
+
+                            <Button
+                                Padding="0"
+                                BackgroundColor="Transparent"
+                                Command="{x:Binding AddOrDeleteNewRowsCommand,
+                                                    Source={RelativeSource AncestorType={x:Type vm:AddItemToCartPageViewModel}}}"
+                                CommandParameter="1"
+                                Style="{x:DynamicResource IconButton}"
+                                Text="&#xE145;" />
+                        </Border>
+
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <views:SharePageView IsOpen="{x:Binding IsSharePopupOpen}" />
+        <views:UserDetailPopUp IsOpen="{x:Binding IsDetailPopUpUpOpen}" />
+    </Grid>
+</ContentPage>

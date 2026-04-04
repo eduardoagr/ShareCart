@@ -1,4 +1,4 @@
-﻿namespace ShareCart.Interfaea;
+﻿namespace ShareCart.Interfaces;
 
 public interface IFirebaseErrorService {
 

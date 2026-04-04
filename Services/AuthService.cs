@@ -1,23 +1,39 @@
 ﻿using Firebase.Auth;
 
-using ShareCart.Interfaea;
+using ShareCart.Interfaces;
 
 namespace ShareCart.Services;
 
-public class AuthService(FirebaseAuthClient authClient) : IAuthService {
+public class AuthService : IAuthService {
 
-    public async Task<UserCredential> LoginAsync(string email, string password) {
+    private readonly IFirebaseAuthClient authClient;
+    private readonly IUserRepoService userRepo;
 
-        var authUser = await authClient.SignInWithEmailAndPasswordAsync(email, password);
+    public AuthService(IFirebaseAuthClient firebaseAuthClient, IUserRepoService repoService) {
 
-        return authUser;
+        authClient = firebaseAuthClient;
+        userRepo = repoService;
+
+        authClient.AuthStateChanged += AuthClient_AuthStateChanged;
     }
 
-    public async Task RegisterAsync(string email, string password) {
+    private async void AuthClient_AuthStateChanged(object? sender, UserEventArgs e) {
+        if(e.User != null) {
+            await userRepo.UpdateLastLoginAsync(e.User.Uid);
+        }
+    }
 
-        await authClient.CreateUserWithEmailAndPasswordAsync(email, password);
-    }
-    public void LogoutAsync() {
-        authClient.SignOut();
-    }
+    public async Task<UserCredential> LoginAsync(string email, string password)
+        => await authClient.SignInWithEmailAndPasswordAsync(email, password);
+
+    public async Task<UserCredential> RegisterAsync(string email, string password)
+        => await authClient.CreateUserWithEmailAndPasswordAsync(email, password);
+
+    public void LogoutAsync() => authClient.SignOut();
+
+    public bool IsAuthenticated() => authClient.User != null;
+
+    public string GetAuthUserID() => authClient.User.Uid;
+
+    public string GetAuthUserEmail() => authClient.User.Info.Email;
 }

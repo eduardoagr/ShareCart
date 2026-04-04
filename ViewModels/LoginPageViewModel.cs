@@ -1,14 +1,13 @@
 ﻿using CommunityToolkit.Mvvm.Input;
 
-using LocalizationResourceManager.Maui;
-
-using ShareCart.Interfaea;
+using ShareCart.Interfaces;
 using ShareCart.Models;
+using ShareCart.Views;
 
 namespace ShareCart.ViewModels;
 
 public partial class LoginPageViewModel(IAuthService auth, IFirebaseErrorService errors,
-    ILocalizationResourceManager resourceManager, IUserRepository userRepository) : AuthBaseViewModel {
+    IUserRepoService userRepository) : AuthBaseViewModel {
 
     protected override void OnCredentialsChanged() {
         LoginCommand.NotifyCanExecuteChanged();
@@ -18,23 +17,61 @@ public partial class LoginPageViewModel(IAuthService auth, IFirebaseErrorService
     private bool IsReady() => Credentials.IsValid;
 
     [RelayCommand(CanExecute = nameof(IsReady))]
-    public async Task LoginAsync() {
+    async Task LoginAsync() {
         try {
 
             isBusy = true;
 
             var authUser = await auth.LoginAsync(Credentials.Email, Credentials.Password);
 
-            if(authUser != null) {
+            await Shell.Current.GoToAsync($"//{nameof(HomePageView)}", true);
 
-                User fireUser = new() {
+        } catch(Exception ex) {
+
+            Message = errors.GetMessage(ex);
+
+            isFailed = true;
+
+        } finally {
+
+            isBusy = false;
+
+        }
+    }
+
+    [RelayCommand]
+    void OpenRegister() {
+
+        isRegisterPopupOpen = true;
+    }
+
+    [RelayCommand(CanExecute = nameof(IsReady))]
+    async Task CloseRegister() {
+
+        isRegisterPopupOpen = false;
+
+        try {
+
+            isBusy = true;
+
+            var authUser = await auth.RegisterAsync(
+                Credentials.Email, Credentials.Password);
+
+
+            if(authUser is not null && !string.IsNullOrEmpty(authUser.User.Uid)) {
+
+                FirebaseUser fireUser = new() {
                     Id = authUser.User.Uid,
                     Email = Credentials.Email,
-                    CreatedAt = DateTime.UtcNow.ToString("g"),
-                    LastLogin = DateTime.UtcNow.ToString("g"),
+                    CreatedAt = DateTime.UtcNow,
+                    LastLogin = DateTime.UtcNow,
                 };
 
-                await userRepository.SaveUserEmailAsync("users", fireUser);
+                var isSaved = await userRepository.SaveUserAsync(fireUser);
+
+                if(isSaved) {
+                    await Shell.Current.GoToAsync($"//{nameof(HomePageView)}", true);
+                }
             }
 
         } catch(Exception ex) {
@@ -46,37 +83,6 @@ public partial class LoginPageViewModel(IAuthService auth, IFirebaseErrorService
         } finally {
 
             isBusy = false;
-        }
-    }
-
-    [RelayCommand]
-    public void OpenRegister() {
-
-        isRegisterPopupOpen = true;
-    }
-
-    [RelayCommand(CanExecute = nameof(IsReady))]
-    public async Task CloseRegister() {
-
-        isRegisterPopupOpen = false;
-
-        try {
-
-            isBusy = true;
-
-            await auth.RegisterAsync(Credentials.Email, Credentials.Password);
-
-        } catch(Exception ex) {
-
-            Message = errors.GetMessage(ex);
-
-            isFailed = true;
-
-        } finally {
-
-            isBusy = false;
-            await Shell.Current.DisplayAlertAsync(resourceManager["UI_Success"],
-                resourceManager["UI_RegistrationSuccess"], resourceManager["UI_Ok"]);
         }
     }
 }

@@ -1,59 +1,75 @@
 ﻿using CommunityToolkit.Maui;
+using CommunityToolkit.Mvvm.Messaging;
 
 using Firebase.Auth;
 using Firebase.Auth.Providers;
+using Firebase.Auth.Repository;
 
 using LocalizationResourceManager.Maui;
 
 using Microsoft.Extensions.Logging;
 
 using ShareCart.Handlers;
-using ShareCart.Interfaea;
+using ShareCart.Interfaces;
 using ShareCart.Resources.Languages;
 using ShareCart.Services;
 using ShareCart.ViewModels;
 using ShareCart.Views;
 
+using Syncfusion.Licensing;
 using Syncfusion.Maui.Core.Hosting;
+namespace ShareCart;
 
-namespace ShareCart {
-    public static class MauiProgram {
-        public static MauiApp CreateMauiApp() {
-            var builder = MauiApp.CreateBuilder();
-            builder.UseMauiApp<App>().ConfigureFonts(fonts => {
-                fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
-                fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-                fonts.AddFont("MaterialIcons-Regular.ttf", "Mat");
+public static class MauiProgram {
 
-            }).UseMauiCommunityToolkit().UseLocalizationResourceManager(settings => {
-                settings.AddResource(AppResources.ResourceManager);
-                settings.RestoreLatestCulture(true);
-            });
+    public static MauiApp CreateMauiApp() {
+
+        SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjGyl/VkV+XU9AclRDX3xKf0x/TGpQb19xflBPallYVBYiSV9jS3hTdURqWH5fd3ddRGNbU091XA==");
+
+        var builder = MauiApp.CreateBuilder();
+        builder.UseMauiApp<App>().ConfigureFonts(fonts => {
+            fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+            fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+            fonts.AddFont("MaterialIcons-Regular.ttf", "Mat");
+
+        }).UseMauiCommunityToolkit().UseLocalizationResourceManager(settings => {
+            settings.AddResource(AppResources.ResourceManager);
+            settings.RestoreLatestCulture(true);
+        });
 #if DEBUG
-            builder.Logging.AddDebug();
+        builder.Logging.AddDebug();
 #endif
-            BorderlessEntryHandler.Apply();
+        BorderlessEntryHandler.Apply();
 
-            builder.Services.AddSingleton<IFirebaseErrorService, FirebaseErrorService>();
-            builder.Services.AddSingleton<IAuthService, AuthService>();
-            builder.Services.AddSingleton<IUserRepository, UserRepository>();
+        builder.Services.AddSingleton<IFirebaseErrorService, FirebaseErrorService>();
+        builder.Services.AddSingleton<IUserRepoService, UserRepService>();
+        builder.Services.AddSingleton<IShoppingListService, ShoppingListService>();
+        builder.Services.AddSingleton<IAuthService, AuthService>();
+        builder.Services.AddSingleton<IFirebaseProvider, FirebaseProvider>();
+        builder.Services.AddSingleton<IMessenger>(WeakReferenceMessenger.Default);
+        builder.Services.AddSingleton<LoginPageView, LoginPageViewModel>();
+        builder.Services.AddSingleton<HomePageView, HomePageViewModel>();
+        builder.Services.AddTransient<UserProfilePageView, UserProfilePageViewModel>();
+        builder.Services.AddTransient<RegistrationPageView>();
+        builder.Services.AddTransient<UserDetailPopUp>();
+        builder.Services.AddTransient<AddItemToCartPageView, AddItemToCartPageViewModel>();
 
-            builder.Services.AddSingleton<LoginPageView, LoginPageViewModel>();
-            builder.Services.AddTransient<RegistrationPageView>();
 
+        builder.Services.AddSingleton<IFirebaseAuthClient>(provider => {
+            var config = new FirebaseAuthConfig {
 
-            builder.Services.AddSingleton(provider => {
-                var config = new FirebaseAuthConfig {
-                    ApiKey = "AIzaSyDX_wYkDhfNgaDhS92xqgXPABiJH8Z_vdA",
-                    AuthDomain = "sharecart-5c350.firebaseapp.com",
-                    Providers = [new EmailProvider()]
-                };
+                ApiKey = "AIzaSyDX_wYkDhfNgaDhS92xqgXPABiJH8Z_vdA",
+                AuthDomain = "sharecart-5c350.firebaseapp.com",
+                Providers = [
+                    new EmailProvider()
+                ],
+                UserRepository = new FileUserRepository("ShareCart")
+            };
 
-                return new FirebaseAuthClient(config);
-            });
+            return new FirebaseAuthClient(config);
+        });
 
-            builder.ConfigureSyncfusionCore();
-            return builder.Build();
-        }
+        builder.ConfigureSyncfusionCore();
+        return builder.Build();
     }
 }

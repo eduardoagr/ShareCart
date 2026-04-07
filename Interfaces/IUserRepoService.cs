@@ -12,5 +12,5 @@ public interface IUserRepoService {
 
     Task<FirebaseUser> GetFirebaseUser(string UserId, string nodeName = "users");
 
-    public Task UpdateFirebaseUser(string UserId, string Name, string ColorHex, string nodeName = "users");
+    public Task UpdateFirebaseUser(string UserId, string Name, string nodeName = "users");
 }

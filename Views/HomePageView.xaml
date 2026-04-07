@@ -13,13 +13,6 @@
     Title="{loc:Translate Ui_ShoppingList}"
     x:DataType="vm:HomePageViewModel">
 
-    <ContentPage.Behaviors>
-        <toolkit:EventToCommandBehavior
-            BindingContext="{Binding Path=BindingContext, Source={x:Reference Home}, x:DataType=ContentPage}"
-            Command="{Binding PageAppearingCommand}"
-            EventName="NavigatedTo" />
-    </ContentPage.Behaviors>
-
     <ContentPage.ToolbarItems>
         <ToolbarItem Command="{x:Binding EditProfileCommand}">
             <ToolbarItem.IconImageSource>
@@ -50,12 +43,12 @@
                 <DataTemplate x:DataType="model:ShoppingList">
                     <Border
                         x:Name="ItemBorder"
-                        Margin="10"
-                        StrokeThickness="4"
+                        Margin="8"
+                        StrokeThickness="2"
                         Style="{x:DynamicResource RoundedBorder}">
 
                         <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="20" />
+                            <RoundRectangle CornerRadius="12" />
                         </Border.StrokeShape>
 
                         <Border.Triggers>
@@ -86,7 +79,6 @@
 
                         <!--  Content  -->
                         <Grid RowDefinitions="Auto,Auto,Auto" RowSpacing="10">
-
 
                             <Label
                                 FontSize="60"

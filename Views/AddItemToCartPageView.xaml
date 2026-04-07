@@ -3,7 +3,6 @@
     x:Class="ShareCart.Views.AddItemToCartPageView"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:behaviors="clr-namespace:ShareCart.Behaviors"
     xmlns:controls="clr-namespace:ShareCart.Controls"
     xmlns:loc="clr-namespace:LocalizationResourceManager.Maui;assembly=LocalizationResourceManager.Maui"
     xmlns:model="clr-namespace:ShareCart.Models"
@@ -13,7 +12,23 @@
     Title="{loc:Translate UI_NewList}"
     x:DataType="vm:AddItemToCartPageViewModel">
 
-    <Grid Padding="0" RowDefinitions="*, Auto">
+    <ContentPage.ToolbarItems>
+
+        <ToolbarItem Command="{Binding ControlPopUpStateCommand}" IsEnabled="{x:Binding HasUsersToShare}">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource Glyph="&#xE80D;" />
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+
+        <ToolbarItem Command="{Binding SaveDatabaseCommand}">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource Glyph="&#xE161;" />
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+
+    </ContentPage.ToolbarItems>
+
+    <Grid RowDefinitions="*, Auto">
 
         <CollectionView x:Name="ItemsList" ItemsSource="{x:Binding Products}">
 
@@ -57,7 +72,6 @@
                                     Color="Green" />
 
                                 <controls:BorderlessEntry
-                                    x:Name="NewProductEnttry"
                                     Grid.Column="1"
                                     Margin="5"
                                     Keyboard="Text"
@@ -75,7 +89,6 @@
                             Grid.Column="1"
                             BackgroundColor="#501313"
                             HeightRequest="48"
-                            StrokeThickness="0"
                             WidthRequest="40">
 
                             <Border.StrokeShape>
@@ -95,7 +108,6 @@
                             Grid.Column="2"
                             BackgroundColor="#173404"
                             HeightRequest="48"
-                            StrokeThickness="0"
                             WidthRequest="40">
 
                             <Border.StrokeShape>
@@ -117,6 +129,5 @@
             </CollectionView.ItemTemplate>
         </CollectionView>
         <views:SharePageView IsOpen="{x:Binding IsSharePopupOpen}" />
-        <views:UserDetailPopUp IsOpen="{x:Binding IsDetailPopUpUpOpen}" />
     </Grid>
 </ContentPage>

@@ -19,8 +19,6 @@ public partial class HomePageViewModel : ObservableObject {
     private readonly IMessenger messenger;
     private readonly ILocalizationResourceManager localizationResource;
 
-    private bool _isLoaded = false;
-
     public ObservableCollection<ShoppingList> ShoppingLists { get; set; } = [];
 
 
@@ -39,6 +37,17 @@ public partial class HomePageViewModel : ObservableObject {
             if(!ShoppingLists.Any(x => x.Id == newItem.Id))
                 ShoppingLists.Add(newItem);
         });
+
+        messenger.Register<string>(this, async (r, s) => {
+            if(s == "Let's go home") {
+
+                await GetList();
+            }
+        });
+
+
+
+        Task.Run(GetList);
     }
 
     [RelayCommand]
@@ -47,25 +56,16 @@ public partial class HomePageViewModel : ObservableObject {
         Shell.Current.GoToAsync(nameof(AddItemToCartPageView), true);
     }
 
-    [RelayCommand]
-    async Task PageAppearing() {
-
-        if(_isLoaded)
-            return;
-
-        _isLoaded = true;
-
+    async Task GetList() {
 
         var userId = authService.GetAuthUserID();
 
         if(string.IsNullOrWhiteSpace(userId))
             return;
 
-
         ShoppingLists.Clear();
 
         var list = await listService.GetShoppingListAsync(authService.GetAuthUserID());
-
         foreach(var item in list) {
 
             item.IsMine = item.OwnerId == authService.GetAuthUserID();
@@ -84,9 +84,9 @@ public partial class HomePageViewModel : ObservableObject {
     [RelayCommand]
     async Task OpenList(ShoppingList list) {
         var parameters = new Dictionary<string, object> {
-            { "list", list }
+            { "listId", list.Id }
         };
-        await Shell.Current.GoToAsync(nameof(AddItemToCartPageView), parameters);
+        await Shell.Current.GoToAsync(nameof(ShoppingDetailsPageView), parameters);
     }
 
     [RelayCommand]

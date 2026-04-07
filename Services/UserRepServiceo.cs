@@ -4,8 +4,6 @@ using Firebase.Database.Query;
 using ShareCart.Interfaces;
 using ShareCart.Models;
 
-using System.Text.Json;
-
 namespace ShareCart.Services;
 
 public class UserRepService(IFirebaseProvider provider) : IUserRepoService {
@@ -41,19 +39,13 @@ public class UserRepService(IFirebaseProvider provider) : IUserRepoService {
     }
 
 
-    public Task UpdateFirebaseUser(string UserId, string Name, string ColorHex, string nodeName = "users") {
+    public Task UpdateFirebaseUser(string UserId, string Name, string nodeName = "users") {
         var updateData = new Dictionary<string, object>
         {
             { "Name",  Name }
         };
 
-        if(!string.IsNullOrEmpty(ColorHex))
-            updateData.Add("BubbleColor", ColorHex);
-
-        var jsonData = JsonSerializer.Serialize(updateData);
-
-
-        return firebase.Child(nodeName).Child(UserId).PatchAsync(jsonData);
+        return firebase.Child(nodeName).Child(UserId).PatchAsync(updateData);
     }
 
     public async Task UpdateLastLoginAsync(string userId, string nodeName = "users") {

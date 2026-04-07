@@ -4,15 +4,21 @@ namespace ShareCart.Models;
 
 public class Product {
 
-    public string Id { get; set; }
+    [JsonIgnore]
+    public string Id { get; internal set; }
 
     [JsonIgnore]
     public bool IsChecked { get; set; }
 
     public string Name { get; set; } = string.Empty;
 
-    public List<FirebaseUser> Addedby { get; set; } = [];
+    public string AddedById { get; set; }
 
     [JsonIgnore]
+    public FirebaseUser AddedBy { get; set; }
+
+    // Local UI-only state
+    [JsonIgnore]
     public bool ShouldFocus { get; set; }
+
 }

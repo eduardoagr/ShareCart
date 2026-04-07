@@ -24,7 +24,7 @@ namespace ShareCart.ViewModels {
             }
 
             await userRepoService.UpdateFirebaseUser(authService.GetAuthUserID(),
-                $"{FirebaseUser.Name}".TrimEnd(), null);
+                $"{FirebaseUser.Name}".TrimEnd());
 
             await Shell.Current.GoToAsync("..");
         }

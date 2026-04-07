@@ -201,9 +201,6 @@
   <data name="Ui_ProductName" xml:space="preserve">
     <value>Nombre del producto</value>
   </data>
-  <data name="UI_Name" xml:space="preserve">
-    <value>Nombre</value>
-  </data>
   <data name="UI_MemberSince" xml:space="preserve">
     <value>Miembro desde </value>
   </data>
@@ -212,9 +209,6 @@
   </data>
   <data name="UI_AddItems" xml:space="preserve">
     <value>¡Intenta agregar algunos artículos a tu carrito!</value>
-  </data>
-  <data name="UI_WhatYourName" xml:space="preserve">
-    <value>Cuales su nombre</value>
   </data>
   <data name="UI_Question" xml:space="preserve">
     <value>Pregunta</value>
@@ -243,7 +237,25 @@
   <data name="UI_No" xml:space="preserve">
     <value>No</value>
   </data>
-  <data name="UIShareCart" xml:space="preserve">
+  <data name="UI_ShareCart" xml:space="preserve">
     <value>Comparte tu carrito</value>
+  </data>
+  <data name="UI_UserProfileTitle" xml:space="preserve">
+    <value>Perfil de usuario
+
+
+</value>
+  </data>
+  <data name="UI_Username" xml:space="preserve">
+    <value>Nombre de usuario</value>
+  </data>
+  <data name="UI_Name" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="UI_CartDetails" xml:space="preserve">
+    <value>Detalles del carrito</value>
+  </data>
+  <data name="UI_Added" xml:space="preserve">
+    <value>Añadido por: </value>
   </data>
 </root>

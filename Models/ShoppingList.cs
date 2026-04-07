@@ -10,7 +10,7 @@ public class ShoppingList {
 
     public string OwnerEmail { get; set; } = string.Empty;
 
-    public string OwnerName { get; set; } = string.Empty;
+    public string OwnerUsername { get; set; } = string.Empty;
 
     public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
 

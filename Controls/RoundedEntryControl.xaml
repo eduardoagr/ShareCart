@@ -6,21 +6,29 @@
     xmlns:controls="clr-namespace:ShareCart.Controls"
     x:Name="Root">
 
-    <Border Padding="12" Style="{StaticResource RoundedBorder}">
+    <Border Padding="12" Style="{x:DynamicResource RoundedBorder}">
 
         <Grid ColumnDefinitions="*,Auto">
 
             <controls:BorderlessEntry
                 BackgroundColor="Transparent"
-                IsPassword="{Binding ComputedIsPassword, Source={x:Reference Root}}"
-                Placeholder="{Binding Placeholder, Source={x:Reference Root}}"
-                Text="{Binding Text, Source={x:Reference Root}, Mode=TwoWay}" />
+                IsPassword="{x:Binding ComputedIsPassword,
+                                       Source={x:Reference Root}}"
+                Placeholder="{x:Binding Placeholder,
+                                        Source={x:Reference Root}}"
+                Text="{x:Binding Text,
+                                 Source={x:Reference Root},
+                                 Mode=TwoWay}"
+                TextColor="{x:Binding TextColor,
+                                      Source={x:Reference Root}}" />
 
             <Label
                 Grid.Column="1"
-                IsVisible="{Binding IsPassword, Source={x:Reference Root}}"
+                IsVisible="{x:Binding IsPassword,
+                                      Source={x:Reference Root}}"
                 Style="{StaticResource IconLabel}"
-                Text="{Binding EyeGlyph, Source={x:Reference Root}}">
+                Text="{x:Binding EyeGlyph,
+                                 Source={x:Reference Root}}">
 
                 <Label.GestureRecognizers>
                     <TapGestureRecognizer x:Name="VisibilityLabel" Tapped="VisibilityLabel_Tapped" />

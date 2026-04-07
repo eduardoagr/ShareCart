@@ -8,7 +8,7 @@
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:vm="clr-namespace:ShareCart.ViewModels"
     x:Name="UserProfile"
-    Title="User profile"
+    Title="{loc:Translate UI_UserProfileTitle}"
     x:DataType="vm:UserProfilePageViewModel">
 
     <ContentPage.Behaviors>
@@ -29,7 +29,9 @@
 
     </ContentPage.ToolbarItems>
 
-    <VerticalStackLayout Padding="20" Spacing="25">
+    <VerticalStackLayout Padding="10" Spacing="10">
+
+        <Label Style="{x:DynamicResource TitleLabel}" Text="{loc:Translate UI_MemberSince}" />
 
         <!--  MEMBER SINCE (read-only, top)  -->
         <controls:RoundedEntryControl
@@ -37,14 +39,18 @@
             Placeholder="{loc:Translate UI_MemberSince}"
             Text="{x:Binding FirebaseUser.CreatedAt}" />
 
+        <Label Style="{x:DynamicResource TitleLabel}" Text="{loc:Translate UI_Email}" />
+
         <!--  EMAIL (read-only)  -->
         <controls:RoundedEntryControl
             IsEnabled="False"
             Placeholder="{loc:Translate UI_Email}"
             Text="{x:Binding FirebaseUser.Email}" />
 
+        <Label Style="{x:DynamicResource TitleLabel}" Text="{loc:Translate UI_Name}" />
+
         <!--  NAME  -->
         <controls:RoundedEntryControl Placeholder="{loc:Translate UI_Name}" Text="{x:Binding FirebaseUser.Name}" />
-        
+
     </VerticalStackLayout>
 </ContentPage>

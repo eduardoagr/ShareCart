@@ -50,9 +50,8 @@ public static class MauiProgram {
         builder.Services.AddSingleton<LoginPageView, LoginPageViewModel>();
         builder.Services.AddSingleton<HomePageView, HomePageViewModel>();
         builder.Services.AddTransient<UserProfilePageView, UserProfilePageViewModel>();
-        builder.Services.AddTransient<RegistrationPageView>();
-        builder.Services.AddTransient<UserDetailPopUp>();
         builder.Services.AddTransient<AddItemToCartPageView, AddItemToCartPageViewModel>();
+        builder.Services.AddTransient<ShoppingDetailsPageView, ShoppingDetailsPageViewModel>();
 
 
         builder.Services.AddSingleton<IFirebaseAuthClient>(provider => {

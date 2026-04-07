@@ -143,7 +143,7 @@
 
     <!--  BORDER  -->
     <Style x:Key="RoundedBorder" TargetType="Border">
-        <Setter Property="StrokeThickness" Value="4" />
+        <Setter Property="StrokeThickness" Value="2" />
         <Setter Property="StrokeShape" Value="RoundRectangle 12" />
         <Setter Property="Stroke" Value="{x:AppThemeBinding Light={x:DynamicResource LightDivider}, Dark={x:DynamicResource DarkDivider}}" />
         <Setter Property="BackgroundColor" Value="{x:AppThemeBinding Light={x:DynamicResource LightSurface}, Dark={x:DynamicResource DarkSurface}}" />

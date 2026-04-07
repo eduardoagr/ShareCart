@@ -12,40 +12,7 @@ public partial class AddItemToCartPageView : ContentPage {
 
         BindingContext = pageViewModel;
 
-        CreateStaticToolbarItems(pageViewModel);
-
         pageViewModel.ScrollToEndRequested += OnScrollRequested;
-
-        pageViewModel.RequestAddShareButton += RequestAddShareButton;
-    }
-
-    private void RequestAddShareButton() {
-
-        if(_shareAdded)
-            return;
-
-        _shareAdded = true;
-
-        var vm = (AddItemToCartPageViewModel)BindingContext;
-
-        var shareItem = new ToolbarItem {
-            IconImageSource = new FontImageSource { Glyph = "\uE80D" },
-            Command = vm.ControlPopUpStateCommand
-        };
-
-        ToolbarItems.Insert(0, shareItem);
-
-    }
-
-    private void CreateStaticToolbarItems(AddItemToCartPageViewModel pageViewModel) {
-
-        var saveItem = new ToolbarItem {
-            IconImageSource = new FontImageSource { Glyph = "\uE161" },
-            Command = pageViewModel.SaveDatabaseCommand
-        };
-
-        ToolbarItems.Add(saveItem);
-
     }
 
     private void OnScrollRequested() {
@@ -79,7 +46,6 @@ public partial class AddItemToCartPageView : ContentPage {
         if(BindingContext is AddItemToCartPageViewModel viewModel) {
 
             viewModel.ScrollToEndRequested -= OnScrollRequested;
-            viewModel.RequestAddShareButton -= RequestAddShareButton;
         }
     }
 

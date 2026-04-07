@@ -61,11 +61,29 @@ namespace ShareCart.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Added by: .
+        /// </summary>
+        internal static string UI_Added {
+            get {
+                return ResourceManager.GetString("UI_Added", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Try adding some items to your cart!.
         /// </summary>
         internal static string UI_AddItems {
             get {
                 return ResourceManager.GetString("UI_AddItems", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cart details.
+        /// </summary>
+        internal static string UI_CartDetails {
+            get {
+                return ResourceManager.GetString("UI_CartDetails", resourceCulture);
             }
         }
         
@@ -322,6 +340,15 @@ namespace ShareCart.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Share your cart.
+        /// </summary>
+        internal static string UI_ShareCart {
+            get {
+                return ResourceManager.GetString("UI_ShareCart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Shopping List.
         /// </summary>
         internal static string Ui_ShoppingList {
@@ -394,6 +421,24 @@ namespace ShareCart.Resources.Languages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Username.
+        /// </summary>
+        internal static string UI_Username {
+            get {
+                return ResourceManager.GetString("UI_Username", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User profile.
+        /// </summary>
+        internal static string UI_UserProfileTitle {
+            get {
+                return ResourceManager.GetString("UI_UserProfileTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Your password is too weak..
         /// </summary>
         internal static string UI_WeakPassword {
@@ -412,15 +457,6 @@ namespace ShareCart.Resources.Languages {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to What&apos;s your name.
-        /// </summary>
-        internal static string UI_WhatYourName {
-            get {
-                return ResourceManager.GetString("UI_WhatYourName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Incorrect password..
         /// </summary>
         internal static string UI_WrongPassword {
@@ -435,15 +471,6 @@ namespace ShareCart.Resources.Languages {
         internal static string UI_Yes {
             get {
                 return ResourceManager.GetString("UI_Yes", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Share your cart.
-        /// </summary>
-        internal static string UIShareCart {
-            get {
-                return ResourceManager.GetString("UIShareCart", resourceCulture);
             }
         }
     }

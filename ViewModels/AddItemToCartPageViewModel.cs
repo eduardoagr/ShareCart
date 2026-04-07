@@ -6,7 +6,6 @@ using LocalizationResourceManager.Maui;
 
 using ShareCart.Interfaces;
 using ShareCart.Models;
-using ShareCart.Services;
 
 using System.Collections.ObjectModel;
 
@@ -24,10 +23,6 @@ public partial class AddItemToCartPageViewModel : ObservableObject {
 
     public Action? FocusLastEntryRequested;
 
-    private string? ColorHex = null;
-
-    public event Action? RequestAddShareButton;
-
     public ShoppingList CurrentList { get; set; } = new();
 
     public ObservableCollection<Product> Products { get; set; } = [new()];
@@ -35,8 +30,6 @@ public partial class AddItemToCartPageViewModel : ObservableObject {
     public ObservableCollection<FirebaseUser> FirebaseUsers { get; set; } = [new()];
 
     public ObservableCollection<FirebaseUser> Ids { get; set; } = [];
-
-    public ObservableCollection<ColorOption> ColorOptions { get; set; } = [];
 
     [ObservableProperty]
     public partial FirebaseUser? CurrentUser { get; set; }
@@ -49,9 +42,6 @@ public partial class AddItemToCartPageViewModel : ObservableObject {
     [ObservableProperty]
     public partial bool HasUsersToShare { get; set; }
 
-    [ObservableProperty]
-    public partial bool IsDetailPopUpUpOpen { get; set; }
-
     public AddItemToCartPageViewModel(IShoppingListService shoppingListService, IAuthService authService,
         IMessenger messenger, IUserRepoService userRepoService, ILocalizationResourceManager localizationResource) {
 
@@ -60,7 +50,6 @@ public partial class AddItemToCartPageViewModel : ObservableObject {
         this.messenger = messenger;
         this.userRepoService = userRepoService;
         this.localizationResource = localizationResource;
-        ColorOptions = ColorService.GetColors();
 
         Task.Run(GetAlUsers);
 
@@ -111,8 +100,6 @@ public partial class AddItemToCartPageViewModel : ObservableObject {
                 FirebaseUsers.Add(user);
             }
         }
-
-        HasUsersToShare = false;
     }
 
     [RelayCommand]
@@ -121,10 +108,6 @@ public partial class AddItemToCartPageViewModel : ObservableObject {
         await SaveListAsync();
 
         HasUsersToShare = !string.IsNullOrEmpty(CurrentList.Id) && FirebaseUsers.Count > 0;
-
-        if(HasUsersToShare) {
-            RequestAddShareButton?.Invoke();
-        }
     }
 
     private async Task SaveListAsync() {
@@ -136,12 +119,10 @@ public partial class AddItemToCartPageViewModel : ObservableObject {
 
         var user = await GetUser();
 
-        var fullName = $"{user.Name}".TrimEnd();
-
         var id = await shoppingListService.SaveShoppingListAsync(
             authService.GetAuthUserID(),
             authService.GetAuthUserEmail(),
-            fullName,
+            user.Username,
             CurrentList
         );
 
@@ -150,20 +131,14 @@ public partial class AddItemToCartPageViewModel : ObservableObject {
         }
 
         foreach(var product in tempProducts) {
+
+            product.AddedById = authService.GetAuthUserID();
+
             var productId = await shoppingListService.AddProductAsync(CurrentList.Id, product);
-            product.Id = productId;
-            CurrentList.Products[productId] = product;
+
         }
 
         messenger.Send(CurrentList);
-
-        if(IsShared) {
-
-            var FirebaseUsersId = Ids.Select(x => x.Id).ToList();
-            await shoppingListService.UpdateShoppingListAsync(CurrentList.Id, FirebaseUsersId);
-        }
-
-        // await Shell.Current.GoToAsync("..");
     }
 
     private async Task<FirebaseUser> GetUser() {
@@ -174,36 +149,16 @@ public partial class AddItemToCartPageViewModel : ObservableObject {
     [RelayCommand]
     async Task ControlPopUpState() {
 
-        CurrentUser = await GetUser();
-
-        if(string.IsNullOrEmpty(CurrentUser.Name) || string.IsNullOrEmpty(CurrentUser.BubbleColor)) {
-            IsDetailPopUpUpOpen = true;
-        } else {
-            IsSharePopupOpen = true;
-        }
+        IsSharePopupOpen = true;
     }
 
-    [RelayCommand]
-    async Task DetailPopUpClosed() {
-
-        await userRepoService.UpdateFirebaseUser(CurrentUser!.Id, CurrentUser.Name, ColorHex!);
-
-        IsDetailPopUpUpOpen = false;
-    }
-
-    [RelayCommand]
-    void SelectedColor(ColorOption color) {
-        foreach(var item in ColorOptions) {
-            item.IsSelected = false;
-        }
-        color.IsSelected = true;
-        ColorHex = color.ColorHex;
-    }
 
     [RelayCommand]
     async Task SharePopUpClosed() {
         IsSharePopupOpen = false;
-        IsShared = true;
+
+        var FirebaseUsersId = Ids.Select(x => x.Id).ToList();
+        await shoppingListService.UpdateShoppingListAsync(CurrentList.Id, FirebaseUsersId);
     }
 
 }

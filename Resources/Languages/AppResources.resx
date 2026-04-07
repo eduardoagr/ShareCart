@@ -201,9 +201,6 @@
   <data name="Ui_ProductName" xml:space="preserve">
     <value>Product name</value>
   </data>
-  <data name="UI_Name" xml:space="preserve">
-    <value>Name</value>
-  </data>
   <data name="UI_MemberSince" xml:space="preserve">
     <value>Member Since</value>
   </data>
@@ -212,9 +209,6 @@
   </data>
   <data name="UI_AddItems" xml:space="preserve">
     <value>Try adding some items to your cart!</value>
-  </data>
-  <data name="UI_WhatYourName" xml:space="preserve">
-    <value>What's your name</value>
   </data>
   <data name="UI_Question" xml:space="preserve">
     <value>Question</value>
@@ -243,7 +237,22 @@
   <data name="UI_No" xml:space="preserve">
     <value>No</value>
   </data>
-  <data name="UIShareCart" xml:space="preserve">
+  <data name="UI_ShareCart" xml:space="preserve">
     <value>Share your cart</value>
+  </data>
+  <data name="UI_UserProfileTitle" xml:space="preserve">
+    <value>User profile</value>
+  </data>
+  <data name="UI_Username" xml:space="preserve">
+    <value>Username</value>
+  </data>
+  <data name="UI_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="UI_CartDetails" xml:space="preserve">
+    <value>Cart details</value>
+  </data>
+  <data name="UI_Added" xml:space="preserve">
+    <value>Added by: </value>
   </data>
 </root>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="ShareCart.Views.ShoppingDetailsPageView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:ShareCart.Controls"
+    xmlns:loc="clr-namespace:LocalizationResourceManager.Maui;assembly=LocalizationResourceManager.Maui"
+    xmlns:models="clr-namespace:ShareCart.Models"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:vm="clr-namespace:ShareCart.ViewModels"
+    Title="{loc:Translate UI_CartDetails}"
+    x:DataType="vm:ShoppingDetailsPageViewModel">
+
+    <CollectionView x:Name="ProductList" ItemsSource="{x:Binding Products}">
+        <CollectionView.Header>
+            <StackLayout Orientation="Horizontal" Spacing="8">
+                <Ellipse
+                    Margin="30,20,0,0"
+                    Fill="#3B6D11"
+                    HeightRequest="8"
+                    VerticalOptions="Center"
+                    WidthRequest="8" />
+                <Label
+                    Margin="2,20,0,0"
+                    Style="{x:DynamicResource SubtitleLabel}"
+                    Text="{x:Binding ShoppingList.Products.Count,
+                                     StringFormat='{0} items'}"
+                    TextTransform="Uppercase" />
+            </StackLayout>
+        </CollectionView.Header>
+        <CollectionView.ItemTemplate>
+            <DataTemplate x:DataType="models:Product">
+                <Grid
+                    Margin="10,2,0,0"
+                    Padding="5"
+                    ColumnDefinitions="*,40"
+                    ColumnSpacing="6"
+                    RowDefinitions="Auto,Auto">
+
+                    <Border BackgroundColor="{x:AppThemeBinding Light={x:DynamicResource LightSurface}, Dark={x:DynamicResource DarkSurface}}" StrokeThickness="2">
+
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="12" />
+                        </Border.StrokeShape>
+
+                        <Grid Padding="8,0,12,0" ColumnDefinitions="34,*">
+
+                            <CheckBox
+                                x:Name="ItemCheckBox"
+                                Command="{x:Binding CheckStatusCommand,
+                                                    Source={x:RelativeSource AncestorType={x:Type vm:ShoppingDetailsPageViewModel}}}"
+                                CommandParameter="{x:Binding .}"
+                                IsChecked="{x:Binding IsChecked}"
+                                Color="Green" />
+
+                            <controls:BorderlessEntry
+                                Grid.Column="1"
+                                Margin="5"
+                                Keyboard="Text"
+                                ReturnCommand="{x:Binding UploadCommand,
+                                                          Source={x:RelativeSource AncestorType={x:Type vm:ShoppingDetailsPageViewModel}}}"
+                                ReturnCommandParameter="{x:Binding .}"
+                                Text="{x:Binding Name}" />
+                        </Grid>
+                    </Border>
+
+                    <Border
+                        Grid.Column="1"
+                        BackgroundColor="#173404"
+                        HeightRequest="48"
+                        WidthRequest="40">
+
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="12" />
+                        </Border.StrokeShape>
+
+                        <Button
+                            Padding="0"
+                            BackgroundColor="Transparent"
+                            Command="{x:Binding AddProductCommand,
+                                                Source={RelativeSource AncestorType={x:Type vm:ShoppingDetailsPageViewModel}}}"
+                            Style="{x:DynamicResource IconButton}"
+                            Text="&#xE145;" />
+                    </Border>
+
+                    <Label
+                        Grid.Row="1"
+                        FontAttributes="Bold"
+                        FontSize="18">
+
+                        <Label.FormattedText>
+                            <FormattedString>
+                                <FormattedString.Spans>
+                                    <Span Text="{loc:Translate UI_Added}" />
+                                    <Span Text="{x:Binding AddedBy.Username}" />
+                                </FormattedString.Spans>
+                            </FormattedString>
+                        </Label.FormattedText>
+                    </Label>
+                </Grid>
+            </DataTemplate>
+        </CollectionView.ItemTemplate>
+    </CollectionView>
+
+
+</ContentPage>

@@ -12,7 +12,7 @@
     x:DataType="vm:AddItemToCartPageViewModel"
     AnimationMode="Zoom"
     AutoSizeMode="Both"
-    HeaderTitle="{loc:Translate UIShareCart}"
+    HeaderTitle="{loc:Translate UI_ShareCart}"
     ShowCloseButton="True"
     StaysOpen="True"
     Style="{x:DynamicResource DefaultPopupStyle}">
@@ -32,11 +32,11 @@
                         HeightRequest="200"
                         ItemsSource="{Binding FirebaseUsers}"
                         SelectedDropDownItemBackground="#F5B0363E"
+                        SelectedItems="{x:Binding Ids}"
                         SelectionMode="Multiple"
                         TextColor="{x:AppThemeBinding Light={x:DynamicResource LightTextSecondary},
                                                       Dark={x:DynamicResource DarkTextSecondary}}"
                         TextMemberPath="DisplayName"
-                        SelectedItems="{x:Binding Ids}"
                         TokensWrapMode="Wrap"
                         VerticalOptions="Center"
                         VerticalTextAlignment="Start" />

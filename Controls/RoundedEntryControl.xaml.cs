@@ -47,6 +47,16 @@ public partial class RoundedEntryControl : ContentView {
         set => SetValue(TextProperty, value);
     }
 
+
+    public static readonly BindableProperty TextColorProperty = BindableProperty.Create(
+        nameof(TextColor), typeof(Color), typeof(RoundedEntryControl));
+
+    public Color TextColor {
+        get => (Color)GetValue(TextColorProperty);
+        set => SetValue(TextColorProperty, value);
+    }
+
+
     // 🔹 Eye icon
     public static readonly BindableProperty EyeGlyphProperty =
         BindableProperty.Create(

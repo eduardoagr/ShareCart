@@ -92,7 +92,7 @@
                             <FormattedString>
                                 <FormattedString.Spans>
                                     <Span Text="{loc:Translate UI_Added}" />
-                                    <Span Text="{x:Binding AddedBy.Username}" />
+                                    <Span Text="{x:Binding AddedBy.Username, TargetNullValue=''}" />
                                 </FormattedString.Spans>
                             </FormattedString>
                         </Label.FormattedText>

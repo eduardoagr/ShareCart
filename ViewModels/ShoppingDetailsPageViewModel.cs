@@ -167,7 +167,5 @@ public partial class ShoppingDetailsPageViewModel(
         await shoppingListService.AddProductAsync(ShoppingList!.Id, product);
 
         product.Name = string.Empty;
-
-        await AddProduct();
     }
 }

@@ -5,8 +5,6 @@ namespace ShareCart.Views;
 
 public partial class AddItemToCartPageView : ContentPage {
 
-    private bool _shareAdded = false;
-
     public AddItemToCartPageView(AddItemToCartPageViewModel pageViewModel) {
         InitializeComponent();
 

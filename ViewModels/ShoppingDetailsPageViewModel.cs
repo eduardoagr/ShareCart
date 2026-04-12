@@ -155,6 +155,8 @@ public partial class ShoppingDetailsPageViewModel(
             AddedBy = currentUser
         });
 
+        ScrollToEndRequested?.Invoke();
+
     }
 
     [RelayCommand]
@@ -165,13 +167,6 @@ public partial class ShoppingDetailsPageViewModel(
         await shoppingListService.AddProductAsync(ShoppingList!.Id, product);
 
         product.Name = string.Empty;
-    }
 
-    [RelayCommand]
-    async Task SaveDatabase() {
-
-        if(ShoppingList == null) return;
-
-        await shoppingListService.UpdateShoppingListAsync(ShoppingList.Id, ShoppingList.OwnerUsername);
     }
 }

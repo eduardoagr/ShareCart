@@ -11,14 +11,6 @@
     Title="{loc:Translate UI_CartDetails}"
     x:DataType="vm:ShoppingDetailsPageViewModel">
 
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Command="{Binding SaveDatabaseCommand}">
-            <ToolbarItem.IconImageSource>
-                <FontImageSource Glyph="&#xE161;" />
-            </ToolbarItem.IconImageSource>
-        </ToolbarItem>
-    </ContentPage.ToolbarItems>
-
 
     <CollectionView x:Name="ProductList" ItemsSource="{x:Binding Products}">
         <CollectionView.Header>

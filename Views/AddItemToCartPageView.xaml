@@ -55,7 +55,7 @@
                     <Grid
                         Margin="10,2,0,0"
                         Padding="5"
-                        ColumnDefinitions="*,40,40"
+                        ColumnDefinitions="*,40"
                         ColumnSpacing="6">
 
                         <Border BackgroundColor="{x:AppThemeBinding Light={x:DynamicResource LightSurface}, Dark={x:DynamicResource DarkSurface}}" StrokeThickness="2">
@@ -84,28 +84,8 @@
                             </Grid>
                         </Border>
 
-
                         <Border
                             Grid.Column="1"
-                            BackgroundColor="#501313"
-                            HeightRequest="48"
-                            WidthRequest="40">
-
-                            <Border.StrokeShape>
-                                <RoundRectangle CornerRadius="12" />
-                            </Border.StrokeShape>
-
-                            <Button
-                                BackgroundColor="Transparent"
-                                Command="{x:Binding AddOrDeleteNewRowsCommand,
-                                                    Source={RelativeSource AncestorType={x:Type vm:AddItemToCartPageViewModel}}}"
-                                CommandParameter="0"
-                                Style="{x:DynamicResource IconButton}"
-                                Text="&#xE15B;" />
-                        </Border>
-
-                        <Border
-                            Grid.Column="2"
                             BackgroundColor="#173404"
                             HeightRequest="48"
                             WidthRequest="40">

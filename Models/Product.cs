@@ -1,8 +1,10 @@
-﻿using Newtonsoft.Json;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+
+using Newtonsoft.Json;
 
 namespace ShareCart.Models;
 
-public class Product {
+public partial class Product : ObservableObject {
 
     [JsonIgnore]
     public string Id { get; internal set; }

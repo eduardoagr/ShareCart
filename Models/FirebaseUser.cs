@@ -16,5 +16,5 @@ public class FirebaseUser {
 
     public string DisplayName => string.IsNullOrWhiteSpace(Name) ? Email : Name;
 
-    public string BubbleColor => "#" + Math.Abs(Name.GetHashCode()).ToString("X6")[..6];
+    public string BubbleColor { get; set; } = "#3498db";
 }

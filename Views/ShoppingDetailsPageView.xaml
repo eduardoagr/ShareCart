@@ -11,6 +11,15 @@
     Title="{loc:Translate UI_CartDetails}"
     x:DataType="vm:ShoppingDetailsPageViewModel">
 
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Command="{Binding SaveDatabaseCommand}">
+            <ToolbarItem.IconImageSource>
+                <FontImageSource Glyph="&#xE161;" />
+            </ToolbarItem.IconImageSource>
+        </ToolbarItem>
+    </ContentPage.ToolbarItems>
+
+
     <CollectionView x:Name="ProductList" ItemsSource="{x:Binding Products}">
         <CollectionView.Header>
             <StackLayout Orientation="Horizontal" Spacing="8">
@@ -43,10 +52,17 @@
                             <RoundRectangle CornerRadius="12" />
                         </Border.StrokeShape>
 
-                        <Grid Padding="8,0,12,0" ColumnDefinitions="34,*">
+                        <Grid Padding="8,0,12,0" ColumnDefinitions="30,34,*">
+
+                            <BoxView
+                                BackgroundColor="{x:Binding AddedBy.BubbleColor}"
+                                CornerRadius="30"
+                                HeightRequest="30"
+                                WidthRequest="30" />
 
                             <CheckBox
                                 x:Name="ItemCheckBox"
+                                Grid.Column="1"
                                 Command="{x:Binding CheckStatusCommand,
                                                     Source={x:RelativeSource AncestorType={x:Type vm:ShoppingDetailsPageViewModel}}}"
                                 CommandParameter="{x:Binding .}"
@@ -54,7 +70,7 @@
                                 Color="Green" />
 
                             <controls:BorderlessEntry
-                                Grid.Column="1"
+                                Grid.Column="2"
                                 Margin="5"
                                 Keyboard="Text"
                                 ReturnCommand="{x:Binding UploadCommand,

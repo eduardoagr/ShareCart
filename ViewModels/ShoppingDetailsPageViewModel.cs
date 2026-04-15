@@ -50,8 +50,7 @@ public partial class ShoppingDetailsPageViewModel(
         _subscription = shoppingListService.SubscribeToList(id, async () => {
             MainThread.BeginInvokeOnMainThread(async () => {
                 ShoppingList = await shoppingListService.GetShoppingListByIdAsync(id);
-                await LoadMembersAsync();
-                await InitProductList();
+                Refresh();
                 if(Products.Count <= 0) {
 
                     await shoppingListService.DeleteShoppingListAsync(id);
@@ -67,6 +66,11 @@ public partial class ShoppingDetailsPageViewModel(
             });
 
         });
+    }
+
+    private void Refresh() {
+        await LoadMembersAsync();
+        await InitProductList();
     }
 
     private async Task InitProductList() {
@@ -88,7 +92,7 @@ public partial class ShoppingDetailsPageViewModel(
             Products.Add(product);
         }
 
-        Products.LastOrDefault()?.ShouldFocus = true;
+
     }
 
     private async Task LoadMembersAsync() {

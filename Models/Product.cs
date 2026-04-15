@@ -21,6 +21,7 @@ public partial class Product : ObservableObject {
 
     // Local UI-only state
     [JsonIgnore]
-    public bool ShouldFocus { get; set; }
+    [ObservableProperty]
+    public partial bool ShouldFocus { get; set; }
 
 }

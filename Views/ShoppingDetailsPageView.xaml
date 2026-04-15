@@ -68,6 +68,7 @@
                                 ReturnCommand="{x:Binding UploadCommand,
                                                           Source={x:RelativeSource AncestorType={x:Type vm:ShoppingDetailsPageViewModel}}}"
                                 ReturnCommandParameter="{x:Binding .}"
+                                ShouldFocus="{x:Binding ShouldFocus}"
                                 Text="{x:Binding Name}" />
                         </Grid>
                     </Border>

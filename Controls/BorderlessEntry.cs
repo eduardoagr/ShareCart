@@ -8,6 +8,7 @@ public partial class BorderlessEntry : Entry {
                 typeof(bool),
                 typeof(BorderlessEntry),
                 false,
+                BindingMode.TwoWay,
                 propertyChanged: OnShouldFocusChanged);
 
     public bool ShouldFocus {
@@ -21,9 +22,14 @@ public partial class BorderlessEntry : Entry {
 
         if(newValue is bool shouldFocus && shouldFocus) {
             MainThread.BeginInvokeOnMainThread(async () => {
-                await Task.Yield();
+                await Task.Delay(50);
+
+                if(!entry.IsLoaded)
+                    return;
+
                 entry.Focus();
-                entry.ShouldFocus = false; // reset
+
+                entry.ShouldFocus = false;
             });
         }
     }

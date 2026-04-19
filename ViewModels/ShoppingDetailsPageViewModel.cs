@@ -68,31 +68,34 @@ public partial class ShoppingDetailsPageViewModel(
         });
     }
 
-    private void Refresh() {
+    private async Task Refresh() {
         await LoadMembersAsync();
         await InitProductList();
     }
 
     private async Task InitProductList() {
-
         if(Products == null)
             return;
 
         await HydrateProductsAsync();
 
+        // 🔥 Capture existing empty row BEFORE clearing
+        var pendingEmpty = Products.FirstOrDefault(p => string.IsNullOrWhiteSpace(p.Name));
+
         Products.Clear();
 
-        if(ShoppingList?.Products == null)
-            return;
-
-        foreach(var item in ShoppingList.Products) {
-
-            var product = item.Value;
-            product.Id = item.Key;
-            Products.Add(product);
+        if(ShoppingList?.Products != null) {
+            foreach(var item in ShoppingList.Products) {
+                var product = item.Value;
+                product.Id = item.Key;
+                Products.Add(product);
+            }
         }
 
-
+        // 🔥 Re-add the empty row AFTER refresh
+        if(pendingEmpty != null) {
+            Products.Add(pendingEmpty);
+        }
     }
 
     private async Task LoadMembersAsync() {
@@ -153,24 +156,56 @@ public partial class ShoppingDetailsPageViewModel(
 
         var currentUser = await userRepoService.GetFirebaseUser(authService.GetAuthUserID());
 
-        Products.Add(new Product {
-            ShouldFocus = true,
+        foreach(var p in Products)
+            p.ShouldFocus = false;
+
+        var newItem = new Product {
+            ShouldFocus = false,
             AddedById = currentUser.Id,
             AddedBy = currentUser
-        });
+        };
+
+        Products.Add(newItem);
 
         ScrollToEndRequested?.Invoke();
 
+        MainThread.BeginInvokeOnMainThread(async () => {
+            await Task.Delay(50);
+            newItem.ShouldFocus = true;
+        });
     }
 
     [RelayCommand]
-    async Task Upload(Product product) {
+    async Task UploadAndAddNext(Product product) {
+        if(product == null || ShoppingList == null)
+            return;
 
-        if(product == null) return;
+        // 1. Save current item
+        await shoppingListService.AddProductAsync(ShoppingList.Id, product);
 
-        await shoppingListService.AddProductAsync(ShoppingList!.Id, product);
+        var currentUser = await userRepoService.GetFirebaseUser(authService.GetAuthUserID());
 
-        product.Name = string.Empty;
+        // 2. Clear ALL focus flags (prevents recycled cell bugs)
+        foreach(var p in Products)
+            p.ShouldFocus = false;
 
+        // 3. Create NEW row (this is the key difference)
+        var newItem = new Product {
+            Name = string.Empty,
+            ShouldFocus = false,
+            AddedById = currentUser.Id,
+            AddedBy = currentUser
+        };
+
+        Products.Add(newItem);
+
+        // 4. Scroll to bottom
+        ScrollToEndRequested?.Invoke();
+
+        // 5. Focus the new row AFTER UI updates
+        MainThread.BeginInvokeOnMainThread(async () => {
+            await Task.Delay(50);
+            newItem.ShouldFocus = true;
+        });
     }
 }

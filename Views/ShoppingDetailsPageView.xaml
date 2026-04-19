@@ -65,10 +65,11 @@
                                 Grid.Column="2"
                                 Margin="5"
                                 Keyboard="Text"
-                                ReturnCommand="{x:Binding UploadCommand,
+                                ReturnCommand="{x:Binding UploadAndAddNextCommand,
                                                           Source={x:RelativeSource AncestorType={x:Type vm:ShoppingDetailsPageViewModel}}}"
                                 ReturnCommandParameter="{x:Binding .}"
-                                ShouldFocus="{x:Binding ShouldFocus}"
+                                ShouldFocus="{x:Binding ShouldFocus,
+                                                        Mode=TwoWay}"
                                 Text="{x:Binding Name}" />
                         </Grid>
                     </Border>
